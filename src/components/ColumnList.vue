@@ -5,7 +5,9 @@
         <img :src="column.avatar" :alt="column.title">
         <h5>{{ column.title }}</h5>
         <p>{{ column.description }}</p>
-        <el-button type="primary" plain size="large">进入专栏</el-button>
+        <router-link :to="`/column/${column.id}`">
+          <el-button type="primary" plain size="large">进入专栏</el-button>
+        </router-link>
       </el-card>
     </el-col>
   </el-row>
@@ -45,6 +47,7 @@ export default defineComponent({
 .columnList{
   .el-card{
     margin-bottom: 20px;
+    height: 350px;
     .el-card__body{
       padding: 42px 32px;
     }
@@ -56,10 +59,18 @@ export default defineComponent({
   }
   h5{
     font-size: 20px;
-    margin: 20px;
+    margin: 15px;
   }
   p{
     margin-bottom: 30px;
+    text-align: left;
+    line-height: 24px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
   .el-button{
     font-size: 16px;

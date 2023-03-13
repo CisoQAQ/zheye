@@ -1,57 +1,30 @@
 <template>
   <global-header :user="currentUser"></global-header>
   <div class="el-container">
-    <!-- <column-list :list="list"></column-list> -->
-    <login></login>
+    <router-view></router-view>
+    <!-- <home></home> -->
+    <!-- <login></login> -->
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import ColumnList, { ColumnProps } from './components/ColumnList.vue'
-import GlobalHeader, { UserProps } from './components/GlobalHeader.vue'
+import { defineComponent,computed } from 'vue'
+import { useStore } from 'vuex'
+import GlobalHeader from './components/GlobalHeader.vue'
+import Home from './views/Home.vue'
 import Login from './views/Login.vue'
 
-const currentUser: UserProps = {
-  isLogin:true,
-  name:'ciso',
-  id:1
-}
-const testData:ColumnProps[] = [
-  {
-    id: 1,
-    title: 'test1的专栏',
-    description: '这是第一个专栏的内容介绍，后续更新，关注~这是第一个专栏的内容介绍，后续更新，关注这是第一个专栏的内容介绍，后续更新，关注',
-  },
-  {
-    id: 2,
-    title: 'test2的专栏',
-    description: '这是第二个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~',
-    avatar: 'https://images.dog.ceo/breeds/pembroke/n02113023_6312.jpg'
-  },
-  {
-    id: 3,
-    title: 'test3的专栏',
-    description: '这是第三个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~',
-    avatar: 'https://images.dog.ceo/breeds/spitz-japanese/tofu.jpg'
-  },
-  {
-    id: 4,
-    title: 'test4的专栏',
-    description: '这是第四个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~这是第三个专栏的内容介绍，后续更新，关注~',
-    avatar: 'https://images.dog.ceo/breeds/pug/n02110958_9505.jpg'
-  }
-]
 export default defineComponent({
   name: 'App',
   components: {
-    ColumnList,
     GlobalHeader,
+    Home,
     Login
   },
   setup() {
+    const store = useStore()
+    const currentUser = computed(() => store.state.user)
     return {
-      list: testData,
       currentUser
     }
   }
@@ -66,6 +39,9 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
 }
+::-webkit-scrollbar{
+  display: none;
+}
 .el-container{
   padding: 0 120px;
   margin-top: 30px;
@@ -79,5 +55,11 @@ export default defineComponent({
 *{
   margin: 0;
   padding: 0;
+}
+.el-container{
+  display: block;
+}
+a{
+  text-decoration: none;
 }
 </style>
